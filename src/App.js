@@ -3,6 +3,7 @@ import './App.css';
 
 import { Header } from "./header.js";
 import { Section } from "./intermediate.js";
+import { Section2 } from "./advanced.js";
 
 class App extends Component {
   state = {
@@ -33,9 +34,9 @@ class App extends Component {
   getAdvanced = () => {
     return fetch("https://towerbackend.herokuapp.com/advanceds")
     .then(response => response.json())
-    .then(advanced => {
-      console.log(advanced);
-      this.setState({advanced})
+    .then(response => {
+      console.log(response);
+      this.setState({advanced: response.advanceds})
     });
   };
 
@@ -48,7 +49,7 @@ class App extends Component {
         <Header />
         <main>
           <Section intermediatelistings={this.state.intermediate} />
-
+          <Section2 advancedlistings={this.state.advanced} />
         </main>
       </div>
     );

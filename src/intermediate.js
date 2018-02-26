@@ -5,6 +5,7 @@ export class Section extends React.Component{
   createListItemIntermediate(item){
     return (
       <li key={item.id}>
+        <p>Level: {item.id}</p>
         <p>Difficulty: {item.difficulty}</p>
         <p>Artist: {item.artist}</p>
         <p>Song: {item.song}</p>
@@ -21,7 +22,6 @@ export class Section extends React.Component{
         <ul className = "intermediateList">
           {this.props.intermediatelistings.map(this.createListItemIntermediate)}
         </ul>
-    
       </section>
     );
   }
