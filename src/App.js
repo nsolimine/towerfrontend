@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import { Header } from "./header.js";
+import { Section } from "./intermediate.js";
 
 class App extends Component {
   state = {
@@ -22,9 +24,9 @@ class App extends Component {
   getIntermediate = () => {
     return fetch("https://towerbackend.herokuapp.com/intermediates")
     .then(response => response.json())
-    .then(intermediate => {
-      console.log(intermediate);
-      this.setState({intermediate})
+    .then(response => {
+      console.log(response);
+      this.setState({intermediate: response.intermediates})
     });
   };
 
@@ -43,13 +45,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header />
+        <main>
+          <Section intermediatelistings={this.state.intermediate} />
+
+        </main>
       </div>
     );
   }
