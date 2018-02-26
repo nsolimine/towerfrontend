@@ -4,6 +4,7 @@ import './App.css';
 import { Header } from "./header.js";
 import { Section } from "./intermediate.js";
 import { Section2 } from "./advanced.js";
+import SongForm from "./form.js";
 
 class App extends Component {
   state = {
@@ -42,14 +43,18 @@ class App extends Component {
 
 
   render() {
-    // if (this.state.loading) return <h1>Loading...</h1>
-
     return (
       <div className="App">
         <Header />
         <main>
-          <Section intermediatelistings={this.state.intermediate} />
-          <Section2 advancedlistings={this.state.advanced} />
+          <div className="songsDiv">
+            <Section intermediatelistings={this.state.intermediate} />
+            <Section2 advancedlistings={this.state.advanced} />
+          </div>
+          <div className="formDiv">
+            <h3>Suggest a song!</h3>
+            <SongForm onSubmit={this.onSubmit} />
+          </div>
         </main>
       </div>
     );
