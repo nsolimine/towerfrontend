@@ -23,6 +23,7 @@ export class Section extends React.Component{
       this.setState({ togglePanels })
     }
 
+
   createListItemIntermediate(item){
     return (
       <li key={item.id}>
