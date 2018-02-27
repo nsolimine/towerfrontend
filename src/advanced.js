@@ -30,12 +30,16 @@ export class Section2 extends React.Component {
           <h4 className="profileLevel" onClick={() => this.toggleFunction(item)}>Level: {item.id}</h4>
         </div>
         <div className={this.state.togglePanels.includes(item.id)?"skills-container":"skills-container hidden"}>
-          <p>Difficulty: {item.difficulty}</p>
+          <p>Difficulty: {item.difficulty && item.difficulty.replace(/s$/,"")}</p>
           <p>Artist: {item.artist}</p>
           <p>Song: "{item.song}"</p>
           <p>Techniques Used: {item.technique}</p>
           <p><a href={item.url} target="blank">Link to listen on YouTube</a></p>
-          <button>Completed!</button>
+          <div>
+            <button>Completed!</button>
+            <button>Delete</button>
+            <button>Update</button>
+          </div>
         </div>
       </li>
     );

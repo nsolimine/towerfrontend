@@ -8,39 +8,52 @@ import SongForm from "./form.js";
 
 class App extends Component {
   state = {
-    intermediate: [],
-    advanced: []
+    intermediates: [],
+    advanceds: []
   }
 
   componentDidMount() {
     this.setState({loading: true})
-    Promise.all([this.getIntermediate(), this.getAdvanced()])
+    Promise.all([this.getSongs("intermediates"), this.getSongs("advanceds")])
     .then(() => {
       this.setState({loading: false})
     })
-    // OR USE
-    // this.getIntermediate();
-    // this.getAdvanced();
   }
 
-  getIntermediate = () => {
-    return fetch("https://towerbackend.herokuapp.com/intermediates")
+  getSongs = (level) => {
+    return fetch("https://towerbackend.herokuapp.com/" + level)
     .then(response => response.json())
     .then(response => {
-      console.log(response);
-      this.setState({intermediate: response.intermediates})
+      if (!response[level]) {throw new Error('Expected "level" ' + level + ' in JSON response');}
+      this.setState({[level]: response[level]})
     });
   };
 
-  getAdvanced = () => {
-    return fetch("https://towerbackend.herokuapp.com/advanceds")
-    .then(response => response.json())
-    .then(response => {
-      console.log(response);
-      this.setState({advanced: response.advanceds})
-    });
-  };
+  createSong = (level, data) => {
+    return fetch('https://towerbackend.herokuapp.com/' + level, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        })
+      })
+    .then(res => res.json())
+    .then(response => console.log('Success:', response))
+    .catch(error => console.error('Error:', error));
+  }
 
+  onSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const postObj = {
+      difficulty: data.get("selectDifficulty"),
+      artist: data.get("artist"),
+      song: data.get("song"),
+      technique: data.get("technique"),
+      url: data.get("url")
+    };
+    this.createSong(postObj.difficulty, postObj)
+  }
 
   render() {
     return (
@@ -48,8 +61,8 @@ class App extends Component {
         <Header />
         <main>
           <div className="songsDiv">
-            <Section intermediatelistings={this.state.intermediate} />
-            <Section2 advancedlistings={this.state.advanced} />
+            <Section intermediatelistings={this.state.intermediates} />
+            <Section2 advancedlistings={this.state.advanceds} />
           </div>
           <div className="formDiv">
             <h3>Suggest a song!</h3>
