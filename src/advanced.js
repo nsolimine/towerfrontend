@@ -42,6 +42,14 @@ export class Section2 extends React.Component {
       }
     }
 
+    renderUpdateButton = (item) => {
+      if(item.id < 6) {
+        return ''
+      } else {
+        return <button>Update</button>
+      }
+    }
+
     toggleFunction = (item) => {
       const { togglePanels } = this.state
       const index = togglePanels.indexOf(item.id)
@@ -67,8 +75,8 @@ export class Section2 extends React.Component {
           <p><a href={item.url} target="blank">Link to listen on YouTube</a></p>
           <div>
             <button>Completed!</button>
+              {this.renderUpdateButton(item)}
               {this.renderDeleteButton(item)}
-            <button>Update</button>
           </div>
         </div>
       </li>
