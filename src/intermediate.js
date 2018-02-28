@@ -10,6 +10,28 @@ export class Section extends React.Component{
       }
       this.toggleFunction = this.toggleFunction.bind(this);
       this.createListItemIntermediate = this.createListItemIntermediate.bind(this);
+      this.deleteSongIntermediate = this.deleteSongIntermediate.bind(this);
+    }
+
+    deleteSongIntermediate = (event) => {
+      this.props.deleteSongIntermediate(this.state.item)
+    }
+
+    deleteSongIntermediate = (level, id) => {
+      return fetch('https://towerbackend.herokuapp.com/' + level + '/' + id, {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        })
+      })
+      .then(response => this.props.loadData())
+      .catch(error => console.error('Error', error));
+    }
+
+    onDeleteIntermediate = (event) => {
+      event.preventDefault();
+      const data = new FormData(event.target);
+      this.deleteSongIntermediate('intermediates', data.get('id'))
     }
 
     toggleFunction = (item) => {
@@ -38,7 +60,7 @@ export class Section extends React.Component{
           <p><a href={item.url} target="blank">Link to listen on YouTube</a></p>
           <div>
             <button>Completed!</button>
-            <button>Delete</button>
+            <button className="delete" onClick={() => this.deleteSongIntermediate(item.difficulty, item.id)}>Delete</button>
             <button>Update</button>
           </div>
         </div>

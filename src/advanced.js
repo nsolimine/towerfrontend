@@ -13,29 +13,25 @@ export class Section2 extends React.Component {
       this.deleteSong = this.deleteSong.bind(this);
     }
 
-
-
-
     deleteSong = (event) => {
       this.props.deleteSong(this.state.item)
     }
 
-    deleteSongAdvanced = () => {
-      return fetch('https://towerbackend.herokuapp.com/advanceds/', {
+    deleteSongAdvanced = (level, id) => {
+      return fetch('https://towerbackend.herokuapp.com/' + level + '/' + id,  {
         method: 'DELETE',
         headers: new Headers({
           'Content-Type': 'application/json',
           })
       })
-      .then(res => res.json())
-      .then(response => console.log('Success', response))
+      .then(response => this.props.loadData())
       .catch(error => console.error('Error', error));
     }
 
     onDelete = (event) => {
       event.preventDefault();
-
-      this.deleteSongAdvanced()
+      const data = new FormData(event.target);
+      this.deleteSongAdvanced('advanceds', data.get('id'))
     }
 
 
@@ -64,7 +60,7 @@ export class Section2 extends React.Component {
           <p><a href={item.url} target="blank">Link to listen on YouTube</a></p>
           <div>
             <button>Completed!</button>
-            <button onClick={this.deleteSongAdvanced}>Delete</button>
+            <button className="delete" onClick={() => this.deleteSongAdvanced(item.difficulty, item.id)}>Delete</button>
             <button>Update</button>
           </div>
         </div>

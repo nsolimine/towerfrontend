@@ -12,12 +12,16 @@ class App extends Component {
     advanceds: []
   }
 
-  componentDidMount() {
+  loadData = () => {
     this.setState({loading: true})
     Promise.all([this.getSongs("intermediates"), this.getSongs("advanceds")])
     .then(() => {
       this.setState({loading: false})
     })
+  }
+
+  componentDidMount() {
+    this.loadData();
   }
 
   getSongs = (level) => {
@@ -38,7 +42,7 @@ class App extends Component {
         })
       })
     .then(res => res.json())
-    .then(response => console.log('Success:', response))
+    .then(response => this.loadData())
     .catch(error => console.error('Error:', error));
   }
 
@@ -55,7 +59,7 @@ class App extends Component {
     this.createSong(postObj.difficulty, postObj)
   }
 
-  
+
 
 
 
@@ -71,8 +75,8 @@ class App extends Component {
         <Header />
         <main>
           <div className="songsDiv">
-            <Section intermediatelistings={this.state.intermediates} />
-            <Section2 advancedlistings={this.state.advanceds} />
+            <Section intermediatelistings={this.state.intermediates} loadData={this.loadData} />
+            <Section2 advancedlistings={this.state.advanceds} loadData={this.loadData} />
           </div>
           <div className="formDiv">
             <h3>Suggest a song!</h3>
