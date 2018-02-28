@@ -34,6 +34,14 @@ export class Section extends React.Component{
       this.deleteSongIntermediate('intermediates', data.get('id'))
     }
 
+    renderDeleteButton = (item) => {
+      if(item.id < 6) {
+        return ''
+      } else {
+        return <button className="delete" onClick={() => this.deleteSongIntermediate(item.difficulty, item.id)}>Delete</button>
+      }
+    }
+
     toggleFunction = (item) => {
       const { togglePanels } = this.state
       const index = togglePanels.indexOf(item.id)
@@ -44,7 +52,6 @@ export class Section extends React.Component{
       }
       this.setState({ togglePanels })
     }
-
 
   createListItemIntermediate(item){
     return (
@@ -60,7 +67,7 @@ export class Section extends React.Component{
           <p><a href={item.url} target="blank">Link to listen on YouTube</a></p>
           <div>
             <button>Completed!</button>
-            <button className="delete" onClick={() => this.deleteSongIntermediate(item.difficulty, item.id)}>Delete</button>
+              {this.renderDeleteButton(item)}
             <button>Update</button>
           </div>
         </div>

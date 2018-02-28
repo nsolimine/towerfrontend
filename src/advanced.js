@@ -34,6 +34,13 @@ export class Section2 extends React.Component {
       this.deleteSongAdvanced('advanceds', data.get('id'))
     }
 
+    renderDeleteButton = (item) => {
+      if(item.id < 6) {
+        return ''
+      } else {
+        return <button className="delete" onClick={() => this.deleteSongAdvanced(item.difficulty, item.id)}>Delete</button>
+      }
+    }
 
     toggleFunction = (item) => {
       const { togglePanels } = this.state
@@ -60,7 +67,7 @@ export class Section2 extends React.Component {
           <p><a href={item.url} target="blank">Link to listen on YouTube</a></p>
           <div>
             <button>Completed!</button>
-            <button className="delete" onClick={() => this.deleteSongAdvanced(item.difficulty, item.id)}>Delete</button>
+              {this.renderDeleteButton(item)}
             <button>Update</button>
           </div>
         </div>
