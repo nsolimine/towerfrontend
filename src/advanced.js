@@ -10,7 +10,34 @@ export class Section2 extends React.Component {
       }
       this.toggleFunction = this.toggleFunction.bind(this);
       this.createListItemAdvanced = this.createListItemAdvanced.bind(this);
+      this.deleteSong = this.deleteSong.bind(this);
     }
+
+
+
+
+    deleteSong = (event) => {
+      this.props.deleteSong(this.state.item)
+    }
+
+    deleteSongAdvanced = () => {
+      return fetch('https://towerbackend.herokuapp.com/advanceds/', {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          })
+      })
+      .then(res => res.json())
+      .then(response => console.log('Success', response))
+      .catch(error => console.error('Error', error));
+    }
+
+    onDelete = (event) => {
+      event.preventDefault();
+
+      this.deleteSongAdvanced()
+    }
+
 
     toggleFunction = (item) => {
       const { togglePanels } = this.state
@@ -37,7 +64,7 @@ export class Section2 extends React.Component {
           <p><a href={item.url} target="blank">Link to listen on YouTube</a></p>
           <div>
             <button>Completed!</button>
-            <button>Delete</button>
+            <button onClick={this.deleteSongAdvanced}>Delete</button>
             <button>Update</button>
           </div>
         </div>
