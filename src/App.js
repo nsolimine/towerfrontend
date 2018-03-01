@@ -5,6 +5,8 @@ import { Header } from "./header.js";
 import { Section } from "./intermediate.js";
 import { Section2 } from "./advanced.js";
 import SongForm from "./form.js";
+import UpdateForm from "./update.js";
+
 
 class App extends Component {
   state = {
@@ -74,13 +76,17 @@ class App extends Component {
       <div className="App">
         <Header />
         <main>
+          <div className="formDiv">
+            <h3>Suggest a song!</h3>
+            <SongForm onSubmit={this.onSubmit} />
+          </div>
           <div className="songsDiv">
             <Section intermediatelistings={this.state.intermediates} loadData={this.loadData} />
             <Section2 advancedlistings={this.state.advanceds} loadData={this.loadData} />
           </div>
-          <div className="formDiv">
-            <h3>Suggest a song!</h3>
-            <SongForm onSubmit={this.onSubmit} />
+          <div className="updateDiv">
+            <h3>Update your submission!</h3>
+            <UpdateForm onSubmit={this.onUpdate} />
           </div>
         </main>
       </div>

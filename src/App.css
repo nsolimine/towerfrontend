@@ -36,3 +36,32 @@ ul,li {
 .hidden {
   display: none;
 }
+
+main{
+  display: flex;
+  flex-direction: row;
+}
+
+.songsDiv {
+  width: 33%;
+}
+
+.formDiv {
+  width: 33%;
+}
+
+.formDiv form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.updateDiv {
+  width: 33%;
+}
+
+.updateDiv form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
