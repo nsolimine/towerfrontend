@@ -9,11 +9,15 @@ import UpdateForm from "./update.js";
 
 
 class App extends Component {
-  state = {
-    intermediates: [],
-    advanceds: [],
-    updateObject: {}
-  }
+  constructor(props){
+    super(props);
+    this.state = {
+      intermediates: [],
+      advanceds: [],
+      updateObject: {}
+  };
+  this.onUpdate = this.onUpdate.bind(this);
+}
 
   loadData = () => {
     this.setState({loading: true})
@@ -80,32 +84,39 @@ class App extends Component {
 
 
 
-  updateSong = (level, data) => {
-    return fetch('https://towerbackend.herokuapp.com/' + level, {
+  updateSong = (level, updateData) => {
+    return fetch('https://towerbackend.herokuapp.com/' + level + '/' + updateData.id, {
       method: 'PUT',
-      body: JSON.stringify(data),
+      body: JSON.stringify(updateData),
       headers: new Headers({
         'Content-Type': 'application/json',
         })
       })
     .then(res => res.json())
     .then(response => this.loadData())
-    .catch(error => console.error());
+    .catch(error => console.error('Error:', error));
   }
 
   onUpdate = (event) => {
     event.preventDefault();
-    const data = new FormData(event.target);
+    const updateData = new FormData(event.target);
     const updateObj = {
-      id: data.get("id"),
-      difficulty: data.get("updateDifficulty"),
-      artist: data.get("artist"),
-      song: data.get("song"),
-      technique: data.get("technique"),
-      url: data.get("url")
+      id: updateData.get("id"),
+      difficulty: updateData.get("difficulty"),
+      artist: updateData.get("artist"),
+      song: updateData.get("song"),
+      technique: updateData.get("technique"),
+      url: updateData.get("url")
     };
+    console.log(updateObj);
     this.updateSong(updateObj.difficulty, updateObj)
   }
+
+
+
+
+
+
 
   render() {
     return (
@@ -122,7 +133,7 @@ class App extends Component {
           </div>
           <div className="updateDiv">
             <h3>Update your submission!</h3>
-            <UpdateForm  updateObj={this.state.updateObject} onSubmit={this.onUpdate} />
+            <UpdateForm  updateObj={this.state.updateObject} onUpdate={this.onUpdate} />
           </div>
         </main>
       </div>
