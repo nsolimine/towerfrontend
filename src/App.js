@@ -24,7 +24,7 @@ class App extends Component {
     Promise.all([this.getSongs("intermediates"), this.getSongs("advanceds")])
     .then(() => {
       this.setState({loading: false})
-    })
+    });
   }
 
   componentDidMount() {
@@ -64,6 +64,7 @@ class App extends Component {
       url: data.get("url")
     };
     this.createSong(postObj.difficulty, postObj)
+    event.target.reset();
   }
 
   updateSongObj = (event) => {
@@ -104,8 +105,8 @@ class App extends Component {
       technique: updateData.get("technique"),
       url: updateData.get("url")
     };
-    console.log(updateObj);
     this.updateSong(updateObj.difficulty, updateObj)
+    event.target.reset();
   }
 
   render() {
