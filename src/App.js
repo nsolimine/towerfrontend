@@ -80,10 +80,6 @@ class App extends Component {
     })
   }
 
-
-
-
-
   updateSong = (level, updateData) => {
     return fetch('https://towerbackend.herokuapp.com/' + level + '/' + updateData.id, {
       method: 'PUT',
@@ -111,12 +107,6 @@ class App extends Component {
     console.log(updateObj);
     this.updateSong(updateObj.difficulty, updateObj)
   }
-
-
-
-
-
-
 
   render() {
     return (
