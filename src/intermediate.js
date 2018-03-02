@@ -11,6 +11,11 @@ export class Section extends React.Component{
       this.toggleFunction = this.toggleFunction.bind(this);
       this.createListItemIntermediate = this.createListItemIntermediate.bind(this);
       this.deleteSongIntermediate = this.deleteSongIntermediate.bind(this);
+      this.updateSongIntermediate = this.updateSongIntermediate.bind(this);
+    }
+
+    updateSongIntermediate = (event) => {
+      this.props.updateSongIntermediate(this.state.item)
     }
 
     deleteSongIntermediate = (event) => {
@@ -46,7 +51,7 @@ export class Section extends React.Component{
       if(item.id < 6) {
         return ''
       } else {
-        return <button>Update</button>
+        return <button className="update" onClick={() => this.props.updateSongObj(item)}>Update</button>
       }
     }
 
@@ -67,7 +72,7 @@ export class Section extends React.Component{
         <div className="profile">
           <h4 className="profileLevel" onClick={() => this.toggleFunction(item)}>Level: {item.id}</h4>
         </div>
-        <div className={this.state.togglePanels.includes(item.id)?"skills-container":"skills-container hidden"}>
+        <div className={this.state.togglePanels.includes(item.id)?"song-list":"song-list hidden"}>
           <p>Difficulty: {item.difficulty && item.difficulty.replace(/s$/,"")}</p>
           <p>Artist: {item.artist}</p>
           <p>Song: "{item.song}"</p>

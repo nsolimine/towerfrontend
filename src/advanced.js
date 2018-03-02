@@ -11,6 +11,11 @@ export class Section2 extends React.Component {
       this.toggleFunction = this.toggleFunction.bind(this);
       this.createListItemAdvanced = this.createListItemAdvanced.bind(this);
       this.deleteSong = this.deleteSong.bind(this);
+      this.updateSongAdvanced = this.updateSongAdvanced.bind(this);
+    }
+
+    updateSongAdvanced = (event) => {
+      this.props.updateSongAdvanced(this.state.item)
     }
 
     deleteSong = (event) => {
@@ -46,7 +51,7 @@ export class Section2 extends React.Component {
       if(item.id < 6) {
         return ''
       } else {
-        return <button>Update</button>
+        return <button className="update" onClick={() => this.props.updateSongObj(item)}>Update</button>
       }
     }
 

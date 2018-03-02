@@ -1,15 +1,11 @@
 import React from "react";
 
-export default function UpdateForm({ onUpdate }){
+export default function UpdateForm({ onUpdate, updateObj }){
+
   return (
     <form className="update-form" onSubmit={onUpdate}>
-      <label htmlFor="id">Level: </label>
-      <input type="number" name="level" id="level" min="6" placeholder="" />
-      <label htmlFor="difficulty">Update the difficulty: </label>
-        <select name="updateDifficulty">
-          <option value="Intermediates">Intermediate</option>
-          <option value="Advanceds">Advanced</option>
-        </select>
+      <label htmlFor="id">Level: {updateObj.id}</label>
+      <label htmlFor="difficulty">Difficulty: {updateObj.difficulty && updateObj.difficulty.replace(/s$/,"")}</label>
       <label htmlFor="artist">Update the artist: </label>
       <input type="text" name="artist" id="artist" placeholder="Update the artist" />
       <label htmlFor="song">Update the song: </label>
