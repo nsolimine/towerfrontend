@@ -102,7 +102,7 @@ class App extends Component {
     const updateData = new FormData(event.target);
     const updateObj = {
       id: updateData.get("id"),
-      difficulty: updateData.get("difficulty"),
+      difficulty: updateData.get("difficulty") + "s",
       artist: updateData.get("artist"),
       song: updateData.get("song"),
       technique: updateData.get("technique"),
